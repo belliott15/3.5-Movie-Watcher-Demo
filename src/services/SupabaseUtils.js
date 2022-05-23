@@ -1,6 +1,30 @@
 import { client } from './client';
 
+export async function getMovies() {
+  const { data } = await client
+    .from('fav_movies')
+    .select('*');
+  
+  return data;
+}
 
+export async function removeMovie(id) {
+  const { data } = await client
+    .from('fav_movies')
+    .delete()
+    .match({ id })
+    .single();
+  
+  return data;
+}
+
+export async function addMovie(movie) {
+  const { data } = await client
+    .from('fav_movies')
+    .insert(movie);
+
+  return data;
+}
 
 
 

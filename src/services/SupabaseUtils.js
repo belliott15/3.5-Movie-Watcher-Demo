@@ -30,10 +30,11 @@ export async function addMovie(movie) {
 
 export async function getUser() {
 
-  return client.auth.session();
+  const thatGuy = client.auth.session();
+  return thatGuy;
 }
   
-export async function signupUser(email, password){
+export async function signUpUser(email, password){
   const response = await client.auth.signUp({ email, password });
       
   return response.user;

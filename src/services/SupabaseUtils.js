@@ -46,6 +46,6 @@ export async function signInUser(email, password){
   return response.user;
 }
 
-export async function Logout() {
+export async function logout() {
   return await client.auth.signOut();
 }

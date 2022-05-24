@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { signInUser, signUpUser } from './services/SupabaseUtils';
+import { getUser, signInUser, signUpUser } from './services/SupabaseUtils';
 
-export default function AuthPage() {
+export default function AuthPage({ setToken }) {
   const { push } = useHistory();
   const [signInData, setSignInData] = useState({
     email: '', 
@@ -16,6 +16,10 @@ export default function AuthPage() {
   async function handleSignIn(e){
     e.preventDefault();
     await signInUser(signInData.email, signInData.password);
+
+    const { access_token } = await getUser();
+    setToken(access_token);
+
     push('/watch-list');
     setSignInData('');
   }
@@ -23,6 +27,9 @@ export default function AuthPage() {
   async function handleSignUp(e){
     e.preventDefault();
     await signUpUser(signUpData.email, signUpData.password);
+
+    const { access_token } = await getUser();
+    setToken(access_token);
 
     push('/watch-list');
     setSignUpData('');

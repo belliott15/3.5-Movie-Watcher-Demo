@@ -9,11 +9,12 @@ import { getUser, logout } from './services/SupabaseUtils';
 
 function App() {
   const [user, setUser] = useState();
+  const [token, setToken] = useState();
 
   useEffect(() => {
     async function getThisUser(){
-      const thisUser = await getUser(); 
-      setUser(thisUser);
+      const user = await getUser(); 
+      setUser(user);
     }
     getThisUser();
   }, []);
@@ -25,7 +26,7 @@ function App() {
   return (
     <Router>
       <div>
-        {user && <nav>
+        {token && <nav>
           <ul>
             <li>
               <Link to="/search">Search</Link>
@@ -42,7 +43,7 @@ function App() {
         }
         <Switch>
           <Route exact path="/">
-            <AuthPage />
+            <AuthPage setToken={setToken}/>
           </Route>
 
           <Route exact path="/search">

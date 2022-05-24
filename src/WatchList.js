@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { 
   getMovies,
   removeMovie,
-  getOneMovie } from './services/SupabaseUtils';
+} from './services/SupabaseUtils';
 import MovieCard from './MovieCard';
 
 
 export default function WatchList() {
   const [favMovies, setFavMovies] = useState([]);
-  
   useEffect(() => {
     async function fetch() {
       const movieData = await getMovies();
@@ -16,13 +15,15 @@ export default function WatchList() {
     }
     fetch();
   }, []);
-  async function handleDelete() {
-    await removeMovie(favMovies.id);
+  async function handleDelete(id) {
+    
+    await removeMovie(id);
+    await getMovies();
   }
   return <div>
     {favMovies.map((movie, i) =>
-      <><MovieCard key={movie.id + movie.title + i} {...movie} />
-        <button onClick={handleDelete}>Watched</button>
+      <><MovieCard key={movie.id + movie.title + i} {...movie}/>
+        <button onClick={()=> handleDelete(movie.id)}>Watched</button>
       </>)}
   </div>;
 }

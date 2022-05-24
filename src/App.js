@@ -1,7 +1,7 @@
 
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import AuthPage from './AuthPage';
 import Search from './Search';
 import WatchList from './WatchList';
@@ -21,7 +21,7 @@ function App() {
 
   async function handleLogout(){
     await logout();
-
+    setToken('');
   }
   return (
     <Router>
@@ -43,15 +43,21 @@ function App() {
         }
         <Switch>
           <Route exact path="/">
-            <AuthPage setToken={setToken}/>
+            { token ? <Redirect to='/watch-list'/>
+              : <AuthPage setToken={setToken}/>
+            }
           </Route>
-
+          
           <Route exact path="/search">
-            <Search />
+            { token ? <Search/>
+              : <Redirect to='/'/>
+            }
           </Route>
-
+            
           <Route exact path="/watch-list">
-            <WatchList />
+            { token ? <WatchList/>
+              : <Redirect to='/'/>
+            }
           </Route>
         </Switch>
       </div>

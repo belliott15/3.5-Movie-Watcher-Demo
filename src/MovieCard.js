@@ -3,7 +3,7 @@ import { addMovie } from './services/SupabaseUtils.js';
 
 export default function MovieCard({ title, overview, poster_path, id, release_date }) {
   async function addToWatchList() {
-    await addMovie({ title, overview, poster_path, id, release_date });
+    await addMovie({ title, overview, poster_path, api_id:id, release_date });
   }
 
   return (

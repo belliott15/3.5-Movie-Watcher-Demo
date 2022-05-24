@@ -4,7 +4,7 @@ import MovieCard from './MovieCard';
 export default function Search() {
   const [search, setSearch] = useState('');
   const [result, setResults] = useState([]);
-  console.log(result);
+  
   async function handleSearch(e) {
     e.preventDefault();
     const movies = await fetchMovies(search);

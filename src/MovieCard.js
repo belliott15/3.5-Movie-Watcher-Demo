@@ -1,16 +1,19 @@
 import React from 'react';
-import { fetchMovies } from './services/fetch-utils';
+import { addMovie } from './services/SupabaseUtils.js';
 
-export default function MovieCard({ movies }) {
+export default function MovieCard({ title, overview, poster_path, id, release_date }) {
+  async function addToWatchList() {
+    await addMovie({ title, overview, poster_path, id, release_date });
+  }
+
   return (
-    <div>
-      {movies.map((movie, i) => (
-        <div key={movie.id + movie.title}>
-          <p>{movie.original_title}</p>
-          <p>{movie.year}</p>
-          <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} />
-        </div>
-      ))}
+    <div className="movie-card">
+      <div>
+        <p>{title}</p>
+        <p>{release_date}</p>
+        <img src={`https://image.tmdb.org/t/p/original${poster_path}`} />
+        <button onClick={addToWatchList}>Add to WatchList</button>
+      </div>
     </div>
   );
 }

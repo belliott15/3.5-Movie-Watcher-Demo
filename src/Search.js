@@ -16,7 +16,11 @@ export default function Search() {
         <input value={search} onChange={(e) => setSearch(e.target.value)} />
         <button>Search</button>
       </form>
-      <MovieCard movies={result} />
+      <div className="movie-card">
+        {result.map((resultEl) => (
+          <MovieCard key={resultEl.id} {...resultEl} />
+        ))}
+      </div>
     </div>
   );
 }

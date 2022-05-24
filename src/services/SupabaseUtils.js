@@ -26,7 +26,15 @@ export async function addMovie(movie) {
   return data;
 }
 
+export async function getOneMovie(id) {
+  const { data } = await client
+    .from('fav_movies')
+    .select('*')
+    .match({ id })
+    .single();
 
+  return data;
+}
 
 export async function getUser() {
 

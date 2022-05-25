@@ -17,11 +17,11 @@ const CustomTooltip = styled(({ className, ...props }) => (
     color: 'rgb(96, 193, 161)',
   },
 }));
-export default function CustomTooltips({ title, image }) {
+export default function CustomTooltips({ title, image, location }) {
   return (
     <div>
       <CustomTooltip title={title} TransitionComponent={Zoom} arrow>
-        <Link to="/search" style={{ textDecoration: 'none', color: 'white' }}><img src={image} /></Link>
+        <Link to={location} style={{ textDecoration: 'none', color: 'white' }}><img src={image} /></Link>
       </CustomTooltip>
     </div>
   );

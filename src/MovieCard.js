@@ -32,6 +32,7 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import { removeMovie } from './services/SupabaseUtils.js';
 
 
 const ExpandMore = styled((props) => {
@@ -45,17 +46,36 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average, handleDelete, favMovies }) {
-  const [matchingMovie, setMatchingMovie] = useState([]);
+export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average, favMovies, fetch, api_id }) {
+  console.log('favMovies', favMovies);
+  console.log('id', id);
+  const [fav, setFav] = useState('');
+
   async function addToWatchList() {
-    const newMovie = await addMovie({ title, overview, poster_path, api_id:id, release_date, vote_average });
-    setMatchingMovie(newMovie);
+    await addMovie({ title, overview, poster_path, api_id:id, release_date, vote_average });
+    await fetch();
+  }
+
+  async function handleDelete() {
+    if (api_id){
+      await removeMovie(api_id);
+    } else {
+      await removeMovie(id);
+    }
+    await fetch();
+    
   }
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+ 
+  useEffect(() => {
+    const matchingId = favMovies.find((favMovie) => Number(favMovie.id) === Number(id) || Number(favMovie.api_id) === Number(id));
+    console.log('matchingId', matchingId);
+    setFav(matchingId);
+  }, [favMovies, id]);
 
   return (
     <Card className='card' sx={{ width: 345 }}>
@@ -80,7 +100,7 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {favMovies ? 
+        {fav ? 
           <>
             <h4>Watched</h4>
             <IconButton onClick={handleDelete} className='watched'>

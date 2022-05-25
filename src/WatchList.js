@@ -20,7 +20,7 @@ export default function WatchList() {
     <div className='watchlist'>
       {favMovies.map((movie, i) => (
         <>
-          <MovieCard key={movie.id + movie.title + i} {...movie} />
+          <MovieCard key={movie.id + movie.title + i + movie.release_date} {...movie} />
           <button onClick={() => handleDelete(movie.id)}>Watched</button>
         </>
       ))}

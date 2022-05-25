@@ -77,10 +77,10 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={addToWatchList}>
           <label className='favorite'>
             Add to Watchlist
-            <FavoriteIcon onClick={addToWatchList}/>
+            <FavoriteIcon />
           </label>
         </IconButton>
         <ExpandMore

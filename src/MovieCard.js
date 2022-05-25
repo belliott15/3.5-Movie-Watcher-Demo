@@ -1,22 +1,4 @@
-// import React from 'react';
 
-
-// export default function MovieCard({ title, overview, poster_path, id, release_date }) {
-//   async function addToWatchList() {
-//     await addMovie({ title, overview, poster_path, api_id:id, release_date });
-//   }
-
-//   return (
-//     // <div className="movie-card">
-//     //   <div>
-//     //     <p>{title}</p>
-//     //     <p>{release_date}</p>
-//     //     <img src={`https://image.tmdb.org/t/p/original${poster_path}`} />
-//     //     <button onClick={addToWatchList}>Add to WatchList</button>
-//     //   </div>
-//     // </div>
-//   );
-// }
 import { addMovie } from './services/SupabaseUtils.js';
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
@@ -37,7 +19,7 @@ import { removeMovie } from './services/SupabaseUtils.js';
 
 
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
+  const { expand, ...other } = props; //eslint-disable-line
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',

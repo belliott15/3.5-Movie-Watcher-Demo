@@ -25,7 +25,7 @@ function App() {
   return (
     <Router>
       <div>
-        {token || user ? (
+        {token ? (
           <nav className='App-header'>
             <ul>
               <li>

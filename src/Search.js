@@ -11,8 +11,8 @@ export default function Search() {
     setResults(movies.results);
   }
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className='search'>
+      <form className='search-form' onSubmit={handleSearch}>
         <input value={search} onChange={(e) => setSearch(e.target.value)} />
         <button>Search</button>
       </form>

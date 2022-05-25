@@ -33,7 +33,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { removeMovie } from './services/SupabaseUtils.js';
-import { SportsRugbySharp } from '@mui/icons-material';
+
 
 
 const ExpandMore = styled((props) => {
@@ -48,8 +48,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average, favMovies, fetch, api_id }) {
-  console.log('favMovies', favMovies);
-  console.log('id', id);
   const [fav, setFav] = useState('');
 
   async function addToWatchList() {
@@ -74,7 +72,6 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
  
   useEffect(() => {
     const matchingId = favMovies.find((favMovie) => Number(favMovie.id) === Number(id) || Number(favMovie.api_id) === Number(id));
-    console.log('matchingId', matchingId);
     setFav(matchingId);
   }, [favMovies, id]);
 

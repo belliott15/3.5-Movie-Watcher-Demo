@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMovies, removeMovie } from './services/SupabaseUtils';
+import { getMovies } from './services/SupabaseUtils';
 import MovieCard from './MovieCard';
 
 export default function WatchList() {

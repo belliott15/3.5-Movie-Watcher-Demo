@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { fetchMovies } from './services/fetch-utils';
 import { getMovies } from './services/SupabaseUtils';
 import MovieCard from './MovieCard';
-import { removeMovie } from './services/SupabaseUtils';
 export default function Search() {
   const [search, setSearch] = useState('');
   const [result, setResults] = useState([]);

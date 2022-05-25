@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import CustomTooltips from './customToolTip';
+import { Zoom } from '@mui/material';
 import AuthPage from './AuthPage';
 import Search from './Search';
 import WatchList from './WatchList';
@@ -29,10 +31,10 @@ function App() {
           <nav className='App-header'>
             <ul>
               <li>
-                <Link to="/search" style={{ textDecoration: 'none', color: 'white' }}>Search</Link>
+                <CustomTooltips text={'Search'} title="Search" id='searchToolTip' image={'./search.png'} ></CustomTooltips>
               </li>
               <li>
-                <Link to="/watch-list" style={{ textDecoration: 'none', color: 'white' }}>Watch List</Link>
+                <CustomTooltips title="Movie List" id='movieListToolTip' image={'./film.png'}></CustomTooltips>
               </li>
               <li>
                 <button onClick={handleLogout}>Log Out</button>

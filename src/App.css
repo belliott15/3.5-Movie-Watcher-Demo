@@ -167,3 +167,7 @@ form button:hover{
   background: rgb(96, 193, 161);
   color:rgba(0, 0, 0, .3)
 }
+
+.watched:hover{
+  transform: scale(1.2);
+}

@@ -18,7 +18,7 @@
 //   );
 // }
 import { addMovie } from './services/SupabaseUtils.js';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -31,6 +31,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 
 const ExpandMore = styled((props) => {
@@ -44,9 +45,11 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average }) {
+export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average, handleDelete, favMovies }) {
+  const [matchingMovie, setMatchingMovie] = useState([]);
   async function addToWatchList() {
-    await addMovie({ title, overview, poster_path, api_id:id, release_date });
+    const newMovie = await addMovie({ title, overview, poster_path, api_id:id, release_date, vote_average });
+    setMatchingMovie(newMovie);
   }
   const [expanded, setExpanded] = React.useState(false);
 
@@ -63,7 +66,7 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
           </Avatar>
         }
         title={title}
-        subheader={release_date}
+        subheader={`Release Date: ${release_date}`}
       />
       <CardMedia
         component="img"
@@ -77,12 +80,20 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={addToWatchList}>
-          <label className='favorite'>
+        {favMovies ? 
+          <>
+            <h4>Watched</h4>
+            <IconButton onClick={handleDelete} className='watched'>
+              <DoneOutlineIcon style={{ color:'#60c1a1', fill: '#60c1a1' }}/>
+            </IconButton> 
+          </>
+          : <IconButton aria-label="add to favorites" onClick={addToWatchList}>
+            <label className='favorite'>
             Add to Watchlist
-            <FavoriteIcon />
-          </label>
-        </IconButton>
+              <FavoriteIcon />
+            </label>
+          </IconButton>}
+        
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

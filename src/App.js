@@ -26,13 +26,13 @@ function App() {
     <Router>
       <div>
         {token || user ? (
-          <nav>
+          <nav className='App-header'>
             <ul>
               <li>
-                <Link to="/search">Search</Link>
+                <Link to="/search" style={{ textDecoration: 'none', color: 'white' }}>Search</Link>
               </li>
               <li>
-                <Link to="/watch-list">Watch List</Link>
+                <Link to="/watch-list" style={{ textDecoration: 'none', color: 'white' }}>Watch List</Link>
               </li>
               <li>
                 <button onClick={handleLogout}>Log Out</button>

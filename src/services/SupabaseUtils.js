@@ -8,11 +8,11 @@ export async function getMovies() {
   return data;
 }
 
-export async function removeMovie(id) {
+export async function removeMovie(api_id) {
   const { data } = await client
     .from('fav_movies')
     .delete()
-    .match({ id })
+    .match({ api_id })
     .single();
   
   return data;
@@ -26,7 +26,15 @@ export async function addMovie(movie) {
   return data;
 }
 
+export async function getOneMovie(id) {
+  const { data } = await client
+    .from('fav_movies')
+    .select('*')
+    .match({ id })
+    .single();
 
+  return data;
+}
 
 export async function getUser() {
 
@@ -46,6 +54,6 @@ export async function signInUser(email, password){
   return response.user;
 }
 
-export async function Logout() {
+export async function logout() {
   return await client.auth.signOut();
 }

@@ -2,6 +2,7 @@ body{
   background: linear-gradient(45deg, rgba(62, 70, 121, 0.818), rgb(96, 193, 161));
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   height: 100vh;
 }
 
@@ -98,8 +99,22 @@ form button{
   padding: 5px;
 }
 
+.watchlist {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
+.card {
+  margin: 10px;
 
+}
 
+.card:hover {
+  transform: scale(1.04);
+}
 
-
+.favorite:hover {
+  cursor: pointer;
+}

@@ -16,7 +16,7 @@ export default function Search() {
         <input value={search} onChange={(e) => setSearch(e.target.value)} />
         <button>Search</button>
       </form>
-      <div className="movie-card">
+      <div className="movie-card watchlist">
         {result.map((resultEl) => (
           <MovieCard key={resultEl.id} {...resultEl} />
         ))}

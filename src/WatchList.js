@@ -17,7 +17,7 @@ export default function WatchList() {
     await fetch();
   }
   return (
-    <div>
+    <div className='watchlist'>
       {favMovies.map((movie, i) => (
         <>
           <MovieCard key={movie.id + movie.title + i} {...movie} />

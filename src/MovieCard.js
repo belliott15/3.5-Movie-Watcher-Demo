@@ -18,7 +18,7 @@
 //   );
 // }
 import { addMovie } from './services/SupabaseUtils.js';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -31,6 +31,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import { removeMovie } from './services/SupabaseUtils.js';
+import { SportsRugbySharp } from '@mui/icons-material';
 
 
 const ExpandMore = styled((props) => {
@@ -44,18 +47,39 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average }) {
+export default function MovieCard({ title, overview, poster_path, id, release_date, vote_average, favMovies, fetch, api_id }) {
+  console.log('favMovies', favMovies);
+  console.log('id', id);
+  const [fav, setFav] = useState('');
+
   async function addToWatchList() {
-    await addMovie({ title, overview, poster_path, api_id:id, release_date });
+    await addMovie({ title, overview, poster_path, api_id:id, release_date, vote_average });
+    await fetch();
+  }
+
+  async function handleDelete() {
+    if (api_id){
+      await removeMovie(api_id);
+    } else {
+      await removeMovie(id);
+    }
+    await fetch();
+    
   }
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+ 
+  useEffect(() => {
+    const matchingId = favMovies.find((favMovie) => Number(favMovie.id) === Number(id) || Number(favMovie.api_id) === Number(id));
+    console.log('matchingId', matchingId);
+    setFav(matchingId);
+  }, [favMovies, id]);
 
   return (
-    <Card className='card' sx={{ width: 345 }}>
+    <Card className='card' sx={{ width: 345, background: 'rgba(255, 255, 255, .75)' }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: '#282c34', fontSize: '.75rem' }} aria-label="recipe">
@@ -63,7 +87,7 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
           </Avatar>
         }
         title={title}
-        subheader={release_date}
+        subheader={`Release Date: ${release_date}`}
       />
       <CardMedia
         component="img"
@@ -77,12 +101,23 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <label className='favorite'>
+        {fav ? 
+          <>
+            <h4>Watched</h4>
+            <IconButton onClick={handleDelete} className='watched'>
+              <DoneOutlineIcon style={{ color:'#60c1a1', fill: '#60c1a1' }}/>
+            </IconButton> 
+          </>
+          : <div>
+            <label>
             Add to Watchlist
-            <FavoriteIcon onClick={addToWatchList}/>
-          </label>
-        </IconButton>
+            </label>
+            <IconButton aria-label="add to watch list" onClick={addToWatchList}>
+              <FavoriteIcon className='favorite'/>
+            </IconButton>
+          </div>}
+          
+        
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

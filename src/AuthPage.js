@@ -39,14 +39,15 @@ export default function AuthPage({ setToken }) {
 
   return (
     <div className='authpage'>
+      <img src=''/>
       <form onSubmit={handleSignIn}>
         <p>Sign In</p>
         <label>
-          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signInData.email} type='email' onChange={(e) => setSignInData({ 
+          <TextField required margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signInData.email} type='email' onChange={(e) => setSignInData({ 
             email: e.target.value, 
             password: signInData.password 
           })}/>
-          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signInData.password} type='password' onChange={(e) => setSignInData({ 
+          <TextField required margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signInData.password} type='password' onChange={(e) => setSignInData({ 
             email: signInData.email, 
             password: e.target.value 
           })}/>
@@ -57,12 +58,12 @@ export default function AuthPage({ setToken }) {
         <p>Sign Up</p>
         <label>
           
-          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signUpData.email} type='email' onChange={(e) => setSignUpData({ 
+          <TextField required margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signUpData.email} type='email' onChange={(e) => setSignUpData({ 
             email: e.target.value, 
             password: signUpData.password 
           })} />
           
-          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signUpData.password} type='password' onChange={(e) => setSignUpData({ 
+          <TextField required margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signUpData.password} type='password' onChange={(e) => setSignUpData({ 
             email: signUpData.email, 
             password: e.target.value
           })}/>

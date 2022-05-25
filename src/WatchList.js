@@ -12,16 +12,16 @@ export default function WatchList() {
   useEffect(() => {
     fetch();
   }, []);
-  async function handleDelete(id) {
-    await removeMovie(id);
-    await fetch();
-  }
+
   return (
     <div className='watchlist'>
       {favMovies.map((movie, i) => (
         <>
-          <MovieCard key={movie.id + movie.title + i} {...movie} />
-          <button onClick={() => handleDelete(movie.id)}>Watched</button>
+          <MovieCard key={movie.id + movie.title + i + movie.release_date} 
+            {...movie}  
+            favMovies={favMovies} 
+            fetch={fetch}
+          />
         </>
       ))}
     </div>

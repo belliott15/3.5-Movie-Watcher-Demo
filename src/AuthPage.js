@@ -6,35 +6,31 @@ import { TextField } from '@mui/material';
 
 export default function AuthPage({ setToken }) {
   const { push } = useHistory();
-  const [signInData, setSignInData] = useState({
-    email: '', 
-    password: ''
-  });
-  const [signUpData, setSignUpData] = useState({
+  const [formData, setFormData] = useState({
     email: '', 
     password: ''
   });
 
   async function handleSignIn(e){
     e.preventDefault();
-    await signInUser(signInData.email, signInData.password);
+    await signInUser(formData.email, formData.password);
 
     const { access_token } = await getUser();
     setToken(access_token);
 
     push('/watch-list');
-    setSignInData('');
+    setFormData('');
   }
 
   async function handleSignUp(e){
     e.preventDefault();
-    await signUpUser(signUpData.email, signUpData.password);
+    await signUpUser(formData.email, formData.password);
 
     const { access_token } = await getUser();
     setToken(access_token);
 
     push('/watch-list');
-    setSignUpData('');
+    setFormData('');
   }
 
   return (
@@ -42,12 +38,12 @@ export default function AuthPage({ setToken }) {
       <form onSubmit={handleSignIn}>
         <p>Sign In</p>
         <label>
-          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signInData.email} type='email' onChange={(e) => setSignInData({ 
+          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={formData.email} type='email' onChange={(e) => setFormData({ 
             email: e.target.value, 
-            password: signInData.password 
+            password: formData.password 
           })}/>
-          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signInData.password} type='password' onChange={(e) => setSignInData({ 
-            email: signInData.email, 
+          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={formData.password} type='password' onChange={(e) => setFormData({ 
+            email: formData.email, 
             password: e.target.value 
           })}/>
         </label>
@@ -57,13 +53,13 @@ export default function AuthPage({ setToken }) {
         <p>Sign Up</p>
         <label>
           
-          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={signUpData.email} type='email' onChange={(e) => setSignUpData({ 
+          <TextField margin='normal' size='small' id="outlined-basic" label="E-mail" variant="outlined" value={formData.email} type='email' onChange={(e) => setFormData({ 
             email: e.target.value, 
-            password: signUpData.password 
+            password: formData.password 
           })} />
           
-          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={signUpData.password} type='password' onChange={(e) => setSignUpData({ 
-            email: signUpData.email, 
+          <TextField margin='normal' size='small' id="outlined-basic" label="Password" variant="outlined" value={formData.password} type='password' onChange={(e) => setFormData({ 
+            email: formData.email, 
             password: e.target.value
           })}/>
         </label>

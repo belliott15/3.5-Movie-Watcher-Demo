@@ -33,6 +33,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { removeMovie } from './services/SupabaseUtils.js';
+import { SportsRugbySharp } from '@mui/icons-material';
 
 
 const ExpandMore = styled((props) => {
@@ -78,7 +79,7 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
   }, [favMovies, id]);
 
   return (
-    <Card className='card' sx={{ width: 345 }}>
+    <Card className='card' sx={{ width: 345, background: 'rgba(255, 255, 255, .75)' }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: '#282c34', fontSize: '.75rem' }} aria-label="recipe">
@@ -107,12 +108,15 @@ export default function MovieCard({ title, overview, poster_path, id, release_da
               <DoneOutlineIcon style={{ color:'#60c1a1', fill: '#60c1a1' }}/>
             </IconButton> 
           </>
-          : <IconButton aria-label="add to favorites" onClick={addToWatchList}>
-            <label className='favorite'>
+          : <div>
+            <label>
             Add to Watchlist
-              <FavoriteIcon />
             </label>
-          </IconButton>}
+            <IconButton aria-label="add to watch list" onClick={addToWatchList}>
+              <FavoriteIcon className='favorite'/>
+            </IconButton>
+          </div>}
+          
         
         <ExpandMore
           expand={expanded}

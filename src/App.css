@@ -143,9 +143,7 @@ form button:hover{
   transform: scale(1.04);
 }
 
-.favorite{
-  padding-left: 50px;
-}
+
 .favorite:hover {
   cursor: pointer;
   color: rgb(203, 64, 64);

@@ -8,7 +8,7 @@ import WatchList from './WatchList';
 import { getUser, logout } from './services/SupabaseUtils';
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(); //eslint-disable-line
   const [token, setToken] = useState();
 
   useEffect(() => {

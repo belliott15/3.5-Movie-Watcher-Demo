@@ -1,49 +1,59 @@
-
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import CustomTooltips from './customToolTip';
 import AuthPage from './AuthPage';
 import Search from './Search';
 import WatchList from './WatchList';
-import { getUser } from './services/SupabaseUtils';
+import { getUser, logout } from './services/SupabaseUtils';
 
 function App() {
-  const [user, setUser] = useState();
-  console.log(user);
+  const [user, setUser] = useState(); //eslint-disable-line
+  const [token, setToken] = useState();
 
   useEffect(() => {
-    async function getThisUser(){
-      const thisUser = await getUser();
-      console.log(thisUser);
-      setUser(thisUser);
+    async function getThisUser() {
+      const user = await getUser();
+      setUser(user);
     }
     getThisUser();
   }, []);
+
+  async function handleLogout() {
+    await logout();
+    setToken('');
+  }
   return (
     <Router>
       <div>
-        {user && <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/watch-list">Watch List</Link>
-            </li>
-          </ul>
-        </nav>
-        }
+        {token ? (
+          <nav className='App-header'>
+            <ul>
+              <li>
+                <CustomTooltips text={'Search'} title="Search" id='searchToolTip' image={'./search.png'} location={'./search'} ></CustomTooltips>
+              </li>
+              <li>
+                <CustomTooltips title="Movie List" id='movieListToolTip' image={'./film.png'} location={'./watch-list'}></CustomTooltips>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Log Out</button>
+              </li>
+            </ul>
+          </nav>
+        ) : (
+          <div></div>
+        )}
         <Switch>
           <Route exact path="/">
-            <AuthPage />
+            {token ? <Redirect to="/watch-list" /> : <AuthPage setToken={setToken} />}
           </Route>
 
           <Route exact path="/search">
-            <Search />
+            {token ? <Search /> : <Redirect to="/" />}
           </Route>
 
           <Route exact path="/watch-list">
-            <WatchList />
+            {token ? <WatchList /> : <Redirect to="/" />}
           </Route>
         </Switch>
       </div>
